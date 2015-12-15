@@ -29,6 +29,12 @@ public class UserController {
     @Autowired
     PasswordService passwordService;
 
+    /**
+     * 用户列表
+     * @param request
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/users",method = RequestMethod.GET)
     public String users(HttpServletRequest request, ModelMap model) {
         int pageNum = ServletRequestUtils.getIntParameter(request,"pageNum",0);
