@@ -1,0 +1,41 @@
+.header {
+    position: relative;
+}
+.header .logo {
+    float: left;
+    font-family: "Kaushan Script",cursive;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 50px;
+    text-align: center;
+    width: 15%;
+    background-color: #7c7c7c;
+    color: #f9f9f9;
+    max-height: 50px;
+    border: 0;
+    border-radius: 0;
+}
+
+.header .navbar  {
+    border: 0;
+    border-radius: 0;
+    margin-left: 15%;
+    margin-bottom: 0;
+}
+.nav i {
+    display:inline-block;
+    line-height: inherit;
+}
+@media screen and (max-width:599px) {
+    .header .logo {
+        display: inline-block;
+        float: none;
+        width: 100%;
+    }
+
+    .header .navbar{
+        margin-left: 0;
+    }
+}
+
+

@@ -1,0 +1,13 @@
+html,body {
+    height: 100%;
+    -ms-overflow-style: scrollbar;
+}
+
+a {
+    text-decoration:none !important;
+}
+a:focus {
+    outline: none;
+    -moz-outline:none;
+    -webkit-shape-outside: none;
+}

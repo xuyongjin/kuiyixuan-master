@@ -1,0 +1,88 @@
+.collapse,.navbar-collapse {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+}
+.left-main {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    position: relative;
+    width:15%;
+    min-height: 100%;
+    background: #F4F4F4;
+    float: left;
+}
+
+.sidebar {
+
+}
+
+
+.sidebar-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-family: "Kaushan Script", cursive;
+    font-size:15px;
+    border-bottom:1px solid #dbdbdb;
+}
+
+.sidebar-menu > li {
+    display: block;
+    border-top: 1px solid #dbdbdb;
+    border-bottom: 1px solid #fff;
+}
+
+.sidebar-menu >li > a{
+    display: block;
+    padding: 12px 5px 12px 15px;
+
+}
+.sidebar-menu > li.active {
+    background-color: #F9F9F9;
+}
+.sidebar-menu > li a:hover {
+    background-color: #F9F9F9;
+}
+
+.sidebar-menu > li > a > .fa {
+    padding: 0 10px;
+}
+
+.sidebar-nextmenu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size:14px;
+}
+
+.sidebar-nextmenu > li {
+    display: block;
+    margin:0 20px;
+    border-top: 1px solid #dbdbdb;
+    border-bottom: 1px solid #fff;
+}
+
+.sidebar-nextmenu >li > a{
+    display: block;
+    padding: 12px 5px 12px 15px;
+
+}
+
+.sidebar-nextmenu > li > a > i {
+    float: left;
+    line-height: inherit;
+    margin: 0 15px;
+}
+
+@media screen and (max-width:599px) {
+    .left-main {
+        width:100%;
+    }
+}
+
+
+

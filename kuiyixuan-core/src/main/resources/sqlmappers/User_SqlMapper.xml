@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="UserMapper">
+	<resultMap type="com.kuiyix.core.model.user.User" id="resultMap_User" >
+		<id column="id" property="id"/>
+		<result column="username" property="userName"/>
+		<result column="email" property="email"/>
+		<result column="phone" property="phone"/>
+		<result column="password" property="password"/>
+		<result column="salt" property="salt"/>
+		<result column="create_date" property="createDate"/>
+		<result column="status" property="status"/>
+		<result column="deleted" property="deleted"/>
+		<result column="admin" property="admin"/>
+	</resultMap>
+	
+	<insert id="saveUser" useGeneratedKeys="true" keyProperty="id" parameterType="com.kuiyix.core.model.user.User">
+		INSERT INTO sys_user
+			(username,email,phone,password,salt,create_date,status,deleted,admin)
+		  VALUES (#{userName},#{email},#{phone},#{password},#{salt},#{createDate},#{status},#{deleted},#{admin})
+	</insert>
+
+	<select id="selectById" resultMap="resultMap_User">
+		SELECT * FROM sys_user
+			WHERE id = #{id}
+	</select>
+	<select id="queryUserByName" resultMap="resultMap_User">
+		SELECT * FROM sys_user
+			WHERE username = #{userName}
+	</select>
+
+    <update id="update">
+		UPDATE sys_user
+		SET username = #{userName},
+			email = #{email},
+			phone = #{phone},
+			password = #{password},
+			salt = #{salt},
+			create_date = #{createDate},
+			status = #{status},
+			deleted = #{deleted},
+			admin = #{admin}
+		WHERE id = #{id}
+	</update>
+
+	<delete id="delete">
+		DELETE FROM sys_user
+		WHERE id = #{id}
+	</delete>
+
+	<select id="findUserList" resultMap="resultMap_User">
+		SELECT * from sys_user
+	</select>
+</mapper>

@@ -1,0 +1,50 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <artifactId>kuiyixuan-parent</artifactId>
+        <groupId>com.kuiyix</groupId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../kuiyixuan-parent/pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>kuiyixuan-admin</artifactId>
+    <packaging>war</packaging>
+    <name>kuiyixuan-admin</name>
+    <url>http://www.kuiyix.com</url>
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>${jetty.version}</version>
+                <configuration>
+                    <webAppConfig>
+                        <contextPath>/</contextPath>
+                        <defaultsDescriptor>src/main/resources/webdefault.xml</defaultsDescriptor>
+                    </webAppConfig>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.kuiyix</groupId>
+            <artifactId>kuiyixuan-common</artifactId>
+            <version>${kuiyixuan-common.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.kuiyix</groupId>
+            <artifactId>kuiyixuan-core</artifactId>
+            <version>${kuiyixuan-core.version}</version>
+        </dependency>
+    </dependencies>
+
+
+    <properties>
+        <kuiyixuan-common.version>1.0-SNAPSHOT</kuiyixuan-common.version>
+        <kuiyixuan-core.version>1.0-SNAPSHOT</kuiyixuan-core.version>
+        <jetty.version>9.3.2.v20150730</jetty.version>
+    </properties>
+</project>

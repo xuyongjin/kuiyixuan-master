@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-4.2.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+    http://www.springframework.org/schema/task  
+	http://www.springframework.org/schema/task/spring-task-4.2.xsd">
+	
+
+	<!-- 开启默认servlet 静态文件交给该servlet，而不交给DispatcherServlet-->
+	<mvc:default-servlet-handler />
+	<!-- 扫描组件（controller层）-->
+	<context:component-scan base-package="com.kuiyix.web.controller" />
+
+	<mvc:annotation-driven enable-matrix-variables="true">
+		<mvc:message-converters register-defaults="true">
+			<bean id="jsonConverter"
+				  class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<property name="supportedMediaTypes" value="text/html;charset=UTF-8" />
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+	<!-- 注册总拦截器 拦截所有url -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<!-- 自定义拦截器。对所有的请求拦截使用/** ,对某个模块下的请求拦截使用：/myPath/* -->
+			<mvc:mapping path="/**" />
+			<bean id="interceptors" class="com.kuiyix.web.interceptor.FullInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+	<!-- 协商视图解析 -->
+	<bean id="contentNegotiationManager"
+		  class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+		<property name="mediaTypes">
+			<map>
+				<entry key="atom" value="application/atom+xml"/>
+				<entry key="html" value="text/html"/>
+				<entry key="json" value="application/json"/>
+			</map>
+		</property>
+	</bean>
+
+	<!-- JSON视图 -->
+	<bean id="mappingJacksonJsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
+
+	<!-- FreeMarker视图解析 如返回userinfo。。在这里配置后缀名ftl和视图解析器。。 -->
+	<bean id="freeMarkerViewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView" />
+		<property name="suffix" value=".ftl" />
+		<property name="contentType" value="text/html;charset=UTF-8" />
+		<property name="exposeRequestAttributes" value="true" />
+		<property name="exposeSessionAttributes" value="true" />
+		<property name="exposeSpringMacroHelpers" value="true" />
+	</bean>
+
+	<!-- 协商视图解析 -->
+	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<!--内容协商管理器 -->
+		<property name="contentNegotiationManager" ref="contentNegotiationManager" />
+		<!-- 设置视图解析器 -->
+		<property name="viewResolvers">
+			<list>
+				<ref bean="freeMarkerViewResolver" />
+			</list>
+		</property>
+		<!-- 配置默认视图解析为json -->
+		<property name="defaultViews">
+			<list>
+				<ref bean="mappingJacksonJsonView" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- freemarker的属性配置 -->
+	<bean id="freemarkerConfigurer" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="templateLoaderPath" value="/WEB-INF/view/" />
+		<property name="defaultEncoding" value="UTF-8" />
+		<property name="freemarkerSettings">
+			<props>
+				<prop key="template_update_delay">10</prop>
+				<prop key="locale">zh_CN</prop>
+				<prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
+				<prop key="date_format">yyyy-MM-dd</prop>
+				<prop key="number_format">#.##</prop>
+			</props>
+		</property>
+	</bean>
+
+	<import resource="spring-mvc-shiro.xml"/>
+</beans>

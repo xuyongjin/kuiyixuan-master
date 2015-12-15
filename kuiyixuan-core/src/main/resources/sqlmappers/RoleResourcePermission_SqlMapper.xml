@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="RoleResourcePermissionMapper">
+	<resultMap type="com.kuiyix.core.model.permission.RoleResourcePermission" id="resultMap_RoleResourcePermission" >
+		<id column="id" property="id"/>
+		<result column="role_id" property="roleId"/>
+		<result column="resource_id" property="resourceId"/>
+		<result column="permission_ids" property="permissionIds"/>
+	</resultMap>
+	
+	<insert id="insert">
+		INSERT INTO sys_role_resource_permission
+			(role_id,resource_id,permission_ids)
+		VALUES (#{roleId},#{resourceId},#{permissionIds})
+	</insert>
+
+	<update id="update">
+		UPDATE sys_role_resource_permission
+		SET role_id = #{roleId},
+			resource_id = #{resourceId},
+			permission_ids = #{permissionIds}
+		WHERE id = #{id}
+	</update>
+
+	<delete id="delete">
+		DELETE FROM sys_role_resource_permission
+		WHERE id = #{id}
+	</delete>
+
+	<select id="selectById" resultMap="resultMap_RoleResourcePermission">
+		SELECT * FROM sys_role_resource_permission
+		WHERE id = #{id}
+	</select>
+
+	<select id="queryByRoleIds" resultMap="resultMap_RoleResourcePermission">
+		SELECT * FROM sys_role_resource_permission
+		WHERE  role_id IN
+		<foreach  collection="list" item="roleId" index="index" open="(" separator="," close=")">
+			${roleId}
+		</foreach>
+	</select>
+</mapper>

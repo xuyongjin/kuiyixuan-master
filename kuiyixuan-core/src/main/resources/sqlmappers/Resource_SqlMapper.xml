@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="ResourceMapper">
+	<resultMap type="com.kuiyix.core.model.resource.Resource" id="resultMap_Resource" >
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="identity" property="identity"/>
+		<result column="url" property="url"/>
+		<result column="parent_id" property="parentId"/>
+		<result column="parent_ids" property="parentIds"/>
+		<result column="icon" property="icon"/>
+		<result column="sort" property="sort"/>
+		<result column="is_show" property="show"/>
+	</resultMap>
+	
+	<insert id="insert">
+		INSERT INTO sys_resource
+			(name,identity,url,parent_id,parent_ids,icon,sort,is_show)
+		VALUES (#{name},#{identity},#{url},#{parentId},#{parentIds},#{icon},#{sort},#{show})
+	</insert>
+	<update id="update">
+		UPDATE sys_resource
+		SET name = #{name},
+			identity = #{identity},
+			url = #{url},
+			parent_id = #{parentId},
+			parent_ids = #{parentIds},
+			icon = #{icon},
+			sort = #{sort},
+			is_show = #{show}
+		WHERE id = #{id}
+	</update>
+
+	<delete id="delete">
+		DELETE FROM sys_resource
+		WHERE id = #{id}
+	</delete>
+	<select id="selectById" resultMap="resultMap_Resource">
+		SELECT * FROM sys_resource
+		WHERE id = #{id}
+	</select>
+	<select id="selectByIds" resultMap="resultMap_Resource">
+		SELECT * FROM sys_resource
+		WHERE id IN
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			${item}
+		</foreach>
+
+	</select>
+</mapper>
